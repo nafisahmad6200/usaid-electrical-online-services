@@ -256,12 +256,15 @@ body.admin-on .admin-bar{display:flex}
 <div class="modal-overlay" id="pinModal">
   <div class="modal">
     <h3>Dukaandar Login</h3>
-    <label>PIN daalein</label>
-    <input type="password" id="pinInput" inputmode="numeric">
+    <label>Email</label>
+    <input type="email" id="adminEmail" autocomplete="username" placeholder="Admin email">
+    <label>Password</label>
+    <input type="password" id="adminPassword" autocomplete="current-password" placeholder="Password">
     <div class="modal-actions">
       <button class="m-cancel" onclick="closePinModal()">Cancel</button>
       <button class="m-save" onclick="checkPin()">Login</button>
     </div>
+    <div id="adminLoginMsg" style="font-size:12px;margin-top:10px;color:#C0392B"></div>
   </div>
 </div>
 
@@ -312,13 +315,13 @@ body.admin-on .admin-bar{display:flex}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const PHONE = "919296165134";
-const ADMIN_PIN = ""; // Imran bhai: chahein to koi bhi 4-digit PIN yahan set kar sakte hain
+const ADMIN_PIN = ""; // Purana client-side PIN hata diya gaya hai; login ab Supabase Auth se hoga.
 
 // Cross-device sync: Supabase project banane ke baad ye do line apni details se badal dein.
-const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-const USE_CLOUD = !SUPABASE_URL.includes('YOUR_SUPABASE');
-const sb = (USE_CLOUD && window.supabase) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const SUPABASE_URL = "https://bagadfcdfplrmkakhtsm.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_LEfb_7SzTV5L7bEYXDkMTg_l7ukakMk";
+const USE_CLOUD = true;
+const sb = (window.supabase) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
 const DEFAULT_PRODUCTS = [
   {id:1, name:"LED Bulb (9W)", unit:"1 piece", price:60, icon:"💡"},
@@ -506,16 +509,45 @@ function requestService(name){
 }
 
 /* --- admin: login --- */
-function openPinModal(){ document.getElementById('pinModal').classList.add('open'); document.getElementById('pinInput').value=''; }
-function closePinModal(){ document.getElementById('pinModal').classList.remove('open'); }
-function checkPin(){
-  if(document.getElementById('pinInput').value === ADMIN_PIN){
-    try{ sessionStorage.setItem('usaid_admin','1'); }catch(e){}
-    document.body.classList.add('admin-on'); closePinModal();
-  } else { alert('Galat PIN'); }
+function openPinModal(){
+  document.getElementById('pinModal').classList.add('open');
+  document.getElementById('adminEmail').value='';
+  document.getElementById('adminPassword').value='';
+  document.getElementById('adminLoginMsg').textContent='';
 }
-function adminOff(){ document.body.classList.remove('admin-on'); try{ sessionStorage.removeItem('usaid_admin'); }catch(e){} }
-if((()=>{ try{ return sessionStorage.getItem('usaid_admin')==='1'; }catch(e){ return false; } })()){ document.body.classList.add('admin-on'); }
+function closePinModal(){ document.getElementById('pinModal').classList.remove('open'); }
+async function checkPin(){
+  const email = document.getElementById('adminEmail').value.trim();
+  const password = document.getElementById('adminPassword').value;
+  const msg = document.getElementById('adminLoginMsg');
+  msg.textContent='';
+  if(!sb){ msg.textContent='Supabase load nahi hua. Internet check karein.'; return; }
+  if(!email || !password){ msg.textContent='Email aur password dono likhein.'; return; }
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+  if(error){ msg.textContent='Login failed: ' + error.message; return; }
+  if(data && data.session){
+    document.body.classList.add('admin-on');
+    const tag=document.getElementById('syncTag'); if(tag) tag.textContent='Supabase connected';
+    closePinModal();
+  }
+}
+async function adminOff(){
+  if(sb){ try{ await sb.auth.signOut(); }catch(e){} }
+  document.body.classList.remove('admin-on');
+}
+
+// Restore an existing Supabase Auth session after page refresh.
+if(sb){
+  sb.auth.getSession().then(({data})=>{
+    if(data && data.session){
+      document.body.classList.add('admin-on');
+      const tag=document.getElementById('syncTag'); if(tag) tag.textContent='Supabase connected';
+    }
+  });
+  sb.auth.onAuthStateChange((_event, session)=>{
+    document.body.classList.toggle('admin-on', !!session);
+  });
+}
 
 /* --- admin: items --- */
 let editingId = null;
