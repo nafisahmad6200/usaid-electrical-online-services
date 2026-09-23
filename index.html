@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Usaid Electrical &amp; Online Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EFE9DC; --ink:#161B2C; --sub:#5B5344;
+  --copper:#B0601E; --copper-d:#8A4A16; --spark:#E8AE3B;
+  --circuit:#215A50; --circuit-d:#193F38; --line:#DCD2BC; --card:#FFFCF6;
+  --ok:#2E8B57; --closed:#B23A2E;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:70px}
+body{margin:0;background:
+  linear-gradient(var(--bg),var(--bg)) fixed,
+  repeating-linear-gradient(0deg,#00000006 0 1px,transparent 1px 28px),
+  repeating-linear-gradient(90deg,#00000006 0 1px,transparent 1px 28px);
+  color:var(--ink);font-family:'Inter',sans-serif;line-height:1.5}
+h1,h2,h3{font-family:'Zilla Slab',serif;margin:0;font-weight:700}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+header{position:sticky;top:0;z-index:40;background:var(--ink);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:1080px;margin:0 auto;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:34px;height:34px;border-radius:8px;background:var(--copper);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+.brand-name{font-family:'Zilla Slab',serif;font-weight:700;font-size:17px;line-height:1.15}
+.brand-name small{display:block;font-family:'Inter',sans-serif;font-weight:400;font-size:11px;color:#C9C2B4}
+nav{display:flex;gap:18px;font-size:14px;margin-right:auto;margin-left:24px}
+nav a{text-decoration:none;color:#E8E4DA;opacity:.85}
+nav a:hover{opacity:1}
+.head-actions{display:flex;gap:8px;align-items:center}
+.icon-btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff2a;width:38px;height:38px;border-radius:999px;cursor:pointer;font-size:16px}
+.cart-btn{background:var(--copper);color:#fff;border:none;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.cart-btn:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--spark);outline-offset:2px}
+@media(max-width:640px){nav{display:none}}
+
+.hero{background:var(--ink);color:#fff;padding:54px 20px 68px;position:relative;overflow:hidden}
+.hero-in{max-width:1080px;margin:0 auto;position:relative;display:grid;grid-template-columns:1.3fr .9fr;gap:20px;align-items:center}
+@media(max-width:760px){.hero-in{grid-template-columns:1fr}}
+.eyebrow{color:var(--spark);font-size:14px;font-weight:600;margin-bottom:10px}
+.hero h1{font-size:clamp(28px,4.6vw,42px);max-width:560px}
+.hero p{color:#D7D1C3;max-width:460px;margin-top:14px;font-size:15px}
+.status-badge{display:inline-flex;align-items:center;gap:7px;background:#ffffff14;border:1px solid #ffffff2a;padding:7px 13px;border-radius:999px;font-size:13px;margin-top:16px}
+.status-dot{width:8px;height:8px;border-radius:50%}
+.hero-actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.btn{padding:12px 22px;border-radius:999px;font-weight:600;font-size:14px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-copper{background:var(--copper);color:#fff}
+.btn-copper:hover{background:var(--copper-d)}
+.btn-ghost{background:transparent;color:#fff;border:1px solid #ffffff55}
+.btn-ghost:hover{border-color:#fff}
+.circuit-art{opacity:.9}
+
+section{padding:54px 20px}
+.sec-head{max-width:520px;margin-bottom:28px}
+.sec-tag{color:var(--copper);font-weight:600;font-size:13px;margin-bottom:6px}
+.sec-tag.circuit{color:var(--circuit)}
+.sec-head h2{font-size:27px}
+.sec-head p{color:var(--sub);margin-top:8px;font-size:14.5px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:16px;display:flex;flex-direction:column;gap:8px;position:relative}
+.card-icon{width:40px;height:40px;border-radius:7px;background:#F0E6D0;display:flex;align-items:center;justify-content:center;font-size:19px}
+.card h3{font-size:15px;font-family:'Inter',sans-serif;font-weight:600}
+.card .unit{color:var(--sub);font-size:12.5px}
+.card .price{font-family:'Zilla Slab',serif;font-weight:700;font-size:18px;color:var(--copper-d);margin-top:2px}
+.qty-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:8px}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.stepper button{background:#fff;border:none;width:27px;height:29px;font-size:16px;cursor:pointer;color:var(--copper-d)}
+.stepper span{min-width:20px;text-align:center;font-size:13.5px;font-weight:600}
+.add-btn{background:var(--copper);color:#fff;border:none;border-radius:7px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.add-btn:hover{background:var(--copper-d)}
+.admin-tools{position:absolute;top:8px;right:8px;display:none;gap:5px}
+body.admin-on .admin-tools{display:flex}
+.admin-tools button{padding:0 8px;height:24px;border-radius:5px;border:1px solid var(--line);background:#fff;font-size:11px;cursor:pointer;font-weight:600}
+.add-card{border:1.5px dashed var(--copper);display:none;align-items:center;justify-content:center;color:var(--copper-d);font-weight:600;font-size:13.5px;cursor:pointer;min-height:120px;background:#F7F1E4}
+body.admin-on .add-card{display:flex}
+.loading-note{color:var(--sub);font-size:13.5px;padding:10px 0}
+.admin-hint{display:none;background:#FBEFD9;border:1px solid #E8CE94;color:#7A5A16;font-size:12.5px;padding:8px 12px;border-radius:7px;margin-bottom:14px}
+body.admin-on .admin-hint{display:block}
+
+.services-sec{background:#E6E0D0}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:16px}
+.svc-card{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:18px;display:flex;flex-direction:column;gap:8px;position:relative}
+.svc-icon{width:40px;height:40px;border-radius:7px;background:#DEEBE6;display:flex;align-items:center;justify-content:center;font-size:19px}
+.svc-card h3{font-size:16px}
+.svc-card p{color:var(--sub);font-size:13.5px;margin:0}
+.svc-btn{margin-top:auto;background:var(--circuit);color:#fff;border:none;border-radius:999px;padding:9px 14px;font-size:13.5px;font-weight:600;cursor:pointer}
+.svc-btn:hover{background:var(--circuit-d)}
+.svc-card.add-card{border:1.5px dashed var(--circuit);color:var(--circuit-d);background:#EAF2EF}
+
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px}
+@media(max-width:760px){.about-grid{grid-template-columns:1fr}}
+.about-grid p{color:var(--sub);font-size:14.5px}
+.info-box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
+.info-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.info-row:last-child{border-bottom:none}
+.info-row b{font-family:'Zilla Slab',serif}
+.dir-link{color:var(--copper-d);font-weight:600;font-size:12.5px;text-decoration:underline}
+
+footer{background:var(--ink);color:#C9C2B4;padding:26px 20px;font-size:12.5px;text-align:center;padding-bottom:calc(26px + env(safe-area-inset-bottom,0px))}
+footer b{color:#fff}
+.admin-link{background:none;border:none;color:#8B8574;font-size:11.5px;cursor:pointer;margin-top:10px;text-decoration:underline}
+
+.overlay{position:fixed;inset:0;background:#00000055;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+.overlay.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(360px,90vw);background:#fff;z-index:60;transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer.open{transform:translateX(0)}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line)}
+.drawer-head h3{font-size:17px}
+.drawer-head button{background:none;border:none;font-size:20px;cursor:pointer;color:var(--sub)}
+.drawer-items{flex:1;overflow-y:auto;padding:12px 18px}
+.d-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;gap:8px}
+.d-item .nm{font-weight:600}
+.d-item .rm{background:none;border:none;color:#B33;cursor:pointer;font-size:12px}
+.empty-cart{color:var(--sub);font-size:13.5px;padding:20px 0}
+.drawer-foot{padding:16px 18px;border-top:1px solid var(--line)}
+.total-row{display:flex;justify-content:space-between;font-weight:700;font-size:15px;margin-bottom:12px}
+.wa-order{width:100%;background:#25D366;color:#fff;border:none;padding:12px;border-radius:8px;font-weight:700;font-size:14.5px;cursor:pointer}
+.wa-order:disabled{opacity:.5;cursor:not-allowed}
+.note{font-size:11.5px;color:var(--sub);margin-top:8px}
+
+.modal-overlay{position:fixed;inset:0;background:#00000066;display:none;align-items:center;justify-content:center;z-index:80;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:12px;padding:22px;width:100%;max-width:340px;max-height:90vh;overflow-y:auto}
+.modal h3{font-size:17px;margin-bottom:14px}
+.modal label{display:block;font-size:12.5px;color:var(--sub);margin:10px 0 4px}
+.modal input,.modal textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:7px;font-size:14px;font-family:inherit}
+.modal textarea{resize:vertical;min-height:56px}
+.chk-row{display:flex;align-items:center;gap:8px;margin-top:14px}
+.chk-row input{width:auto}
+.chk-row label{margin:0;font-size:13px;color:var(--ink)}
+.modal-actions{display:flex;gap:8px;margin-top:16px}
+.modal-actions button{flex:1;padding:10px;border-radius:7px;border:none;font-weight:600;font-size:13.5px;cursor:pointer}
+.m-save{background:var(--copper);color:#fff}
+.m-cancel{background:#EFEAE0;color:var(--ink)}
+.m-danger{background:#C0392B;color:#fff}
+.admin-bar{display:none;justify-content:space-between;align-items:center;background:var(--circuit);color:#fff;padding:8px 20px;font-size:13px;gap:10px;flex-wrap:wrap}
+body.admin-on .admin-bar{display:flex}
+.admin-bar .right{display:flex;gap:8px;align-items:center}
+.admin-bar button{background:#ffffff22;border:none;color:#fff;padding:5px 10px;border-radius:6px;font-size:12px;cursor:pointer}
+.sync-tag{font-size:11px;opacity:.85}
+</style>
+</head>
+<body>
+
+<div class="admin-bar"><span>🔧 Admin mode chalu hai</span><div class="right"><span class="sync-tag" id="syncTag"></span><button onclick="openSettingsModal()">⚙️ Settings</button><button onclick="adminOff()">Bahar Nikalein</button></div></div>
+
+<header>
+  <div class="bar">
+    <div class="brand">
+      <div class="brand-mark">⚡</div>
+      <div class="brand-name">Usaid Electrical<small>&amp; Online Services</small></div>
+    </div>
+    <nav>
+      <a href="#products">Electrical Saman</a>
+      <a href="#services">Online Services</a>
+      <a href="#contact">Rabta</a>
+    </nav>
+    <div class="head-actions">
+      <button class="icon-btn" onclick="openPinModal()" aria-label="Dukaandar Login" title="Dukaandar Login">🔧</button>
+      <button class="cart-btn" onclick="openCart()">🛒 <span id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-in">
+    <div>
+      <div class="eyebrow">Kara · Obra · Aurangabad, Bihar</div>
+      <h1>Aapke ghar aur dukan ki har electrical zaroorat, ek hi jagah</h1>
+      <p>Switch, wire, MCB se lekar mobile recharge aur sarkari form tak — Usaid Electrical &amp; Online Services par order karein ya WhatsApp par seedha poochein.</p>
+      <div id="statusBadge" class="status-badge"></div>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-copper">Saman Dekhein</a>
+        <a href="#services" class="btn btn-ghost">Online Services</a>
+      </div>
+    </div>
+    <svg class="circuit-art" viewBox="0 0 240 200" width="100%" height="auto" aria-hidden="true">
+      <g fill="none" stroke="#E8AE3B" stroke-width="2" opacity=".8">
+        <path d="M10 40 H90 V90 H160" /><path d="M10 110 H60 V150 H140 V90 H230" />
+        <path d="M120 20 V70" /><path d="M200 130 V180 H40" />
+      </g>
+      <g fill="#E8AE3B">
+        <circle cx="10" cy="40" r="4"/><circle cx="90" cy="90" r="4"/><circle cx="160" cy="90" r="4"/>
+        <circle cx="120" cy="20" r="4"/><circle cx="120" cy="70" r="4"/><circle cx="10" cy="110" r="4"/>
+        <circle cx="140" cy="150" r="4"/><circle cx="230" cy="90" r="4"/><circle cx="200" cy="130" r="4"/>
+        <circle cx="40" cy="180" r="4"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section id="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Electrical Saman</div>
+      <h2>Order karein, hum tayyar rakhenge</h2>
+      <p>Item chunein, cart mein daalein aur WhatsApp par order confirm karein.</p>
+    </div>
+    <div class="admin-hint">🔧 Admin mode mein hain — kisi bhi item par ✎ dabakar edit/delete karein, ya neeche "+ Naya Item" par click karein.</div>
+    <div class="grid" id="productGrid"><div class="loading-note">Saman load ho raha hai…</div></div>
+  </div>
+</section>
+
+<section id="services" class="services-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag circuit">Online Services</div>
+      <h2>Ek button par request bhejein</h2>
+      <p>Neeche di gayi kisi bhi service ke liye WhatsApp par seedha request bhej sakte hain.</p>
+    </div>
+    <div class="admin-hint">🔧 Admin mode mein hain — service par ✎ dabakar edit/delete karein, ya neeche "+ Nayi Service" par click karein.</div>
+    <div class="svc-grid" id="svcGrid"><div class="loading-note">Services load ho rahi hain…</div></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="sec-tag">Hamare Baare Mein</div>
+      <h2 style="font-size:25px;margin-bottom:10px">Imran Ahmad ki dukan, mohalle ke bharose ke saath</h2>
+      <p>Usaid Electrical &amp; Online Services Kara, Obra (Aurangabad, Bihar) mein sthit hai. Yahan electrical saman ki khareedari aur zaroori online kaam, dono ek hi jagah milte hain.</p>
+    </div>
+    <div class="info-box" id="contact">
+      <div class="info-row"><b>Malik:</b>&nbsp;Imran Ahmad</div>
+      <div class="info-row" style="flex-direction:column;align-items:flex-start;gap:4px"><div><b>Pata:</b>&nbsp;<span id="locText"></span></div><a class="dir-link" id="dirLink" href="#" target="_blank">Directions Dekhein →</a></div>
+      <div class="info-row"><b>WhatsApp:</b>&nbsp;+91 92961 65134</div>
+      <div class="info-row"><b>Samay:</b>&nbsp;<span id="timeText"></span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>Usaid Electrical &amp; Online Services</b> · Kara, Obra, Aurangabad, Bihar<br>
+  © <span id="yr"></span> — Imran Ahmad
+  <div><button class="admin-link" onclick="openPinModal()">Dukaandar Login</button></div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head"><h3>Aapka Order</h3><button onclick="closeCart()" aria-label="Band karein">✕</button></div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="total-row"><span>Total</span><span id="cartTotal">₹0</span></div>
+    <button class="wa-order" id="waOrderBtn" onclick="sendOrder()">WhatsApp par Order Bhejein</button>
+    <div class="note">Dukan band ho tab bhi online order le liya jata hai — agle khulne par tayyar milega.</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="pinModal">
+  <div class="modal">
+    <h3>Dukaandar Login</h3>
+    <label>PIN daalein</label>
+    <input type="password" id="pinInput" inputmode="numeric">
+    <div class="modal-actions">
+      <button class="m-cancel" onclick="closePinModal()">Cancel</button>
+      <button class="m-save" onclick="checkPin()">Login</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="itemModal">
+  <div class="modal">
+    <h3 id="itemModalTitle">Naya Item</h3>
+    <label>Item ka naam</label><input id="f-name">
+    <label>Unit (jaise: 1 piece, 1 metre)</label><input id="f-unit">
+    <label>Price (₹)</label><input id="f-price" type="number">
+    <label>Icon (koi emoji)</label><input id="f-icon">
+    <div class="modal-actions">
+      <button class="m-danger" id="f-delete" onclick="deleteItem()" style="display:none">Delete</button>
+      <button class="m-cancel" onclick="closeItemModal()">Cancel</button>
+      <button class="m-save" onclick="saveItem()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="serviceModal">
+  <div class="modal">
+    <h3 id="svcModalTitle">Nayi Service</h3>
+    <label>Service ka naam</label><input id="sv-name">
+    <label>Tafseel (chota sa description)</label><textarea id="sv-desc"></textarea>
+    <label>Icon (koi emoji)</label><input id="sv-icon">
+    <div class="modal-actions">
+      <button class="m-danger" id="sv-delete" onclick="deleteService()" style="display:none">Delete</button>
+      <button class="m-cancel" onclick="closeServiceModal()">Cancel</button>
+      <button class="m-save" onclick="saveService()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <h3>Dukan Settings</h3>
+    <label>Khulne ka samay</label><input id="s-open" type="time">
+    <label>Band hone ka samay</label><input id="s-close" type="time">
+    <label>Dukan ka pata / location</label><input id="s-loc">
+    <div class="chk-row"><input type="checkbox" id="s-manual"><label for="s-manual">Aaj dukan offline band rakhein (online order phir bhi chalta rahega)</label></div>
+    <label>Wajah (optional, jaise "Aaj chutti hai")</label><input id="s-note">
+    <div class="modal-actions">
+      <button class="m-cancel" onclick="closeSettingsModal()">Cancel</button>
+      <button class="m-save" onclick="saveSettings()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const PHONE = "919296165134";
+const ADMIN_PIN = ""; // Imran bhai: chahein to koi bhi 4-digit PIN yahan set kar sakte hain
+
+// Cross-device sync: Supabase project banane ke baad ye do line apni details se badal dein.
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const USE_CLOUD = !SUPABASE_URL.includes('YOUR_SUPABASE');
+const sb = (USE_CLOUD && window.supabase) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+const DEFAULT_PRODUCTS = [
+  {id:1, name:"LED Bulb (9W)", unit:"1 piece", price:60, icon:"💡"},
+  {id:2, name:"Ceiling Fan", unit:"1 piece", price:1350, icon:"🌀"},
+  {id:3, name:"Modular Switch", unit:"1 piece", price:35, icon:"🔘"},
+  {id:4, name:"MCB (Single Pole)", unit:"1 piece", price:120, icon:"🔌"},
+  {id:5, name:"Copper Wire (1.5 sqmm)", unit:"1 metre", price:14, icon:"🧵"},
+  {id:6, name:"Extension Board (4 socket)", unit:"1 piece", price:280, icon:"🔗"},
+  {id:7, name:"Tube Light (20W LED)", unit:"1 piece", price:150, icon:"📏"},
+  {id:8, name:"Holder / Socket", unit:"1 piece", price:25, icon:"🧿"},
+];
+const DEFAULT_SERVICES = [
+  {id:1, name:"Mobile Recharge / Bill Payment", desc:"Kisi bhi network ka recharge aur bijli/DTH bill jama.", icon:"📱"},
+  {id:2, name:"Aadhar / PAN / Sarkari Form", desc:"Naya banwana ho ya correction, sab yahan ho jayega.", icon:"📄"},
+  {id:3, name:"Xerox / Printout / Scan", desc:"Documents ki photocopy, print aur scan turant.", icon:"🖨️"},
+];
+const DEFAULT_SETTINGS = {open:"07:00", close:"21:00", loc:"Kara, Obra, Aurangabad, Bihar", manualClosed:false, note:""};
+
+let products = [];
+let services = [];
+let settings = Object.assign({}, DEFAULT_SETTINGS);
+let cart = {};
+try{ cart = JSON.parse(localStorage.getItem('usaid_cart')||'{}'); }catch(e){ cart = {}; }
+function saveCart(){ try{ localStorage.setItem('usaid_cart', JSON.stringify(cart)); }catch(e){} }
+
+/* ---------- products: cloud with local fallback ---------- */
+async function loadProducts(){
+  if(!sb){
+    try{ products = JSON.parse(localStorage.getItem('usaid_products')) || DEFAULT_PRODUCTS.slice(); }catch(e){ products = DEFAULT_PRODUCTS.slice(); }
+    renderProducts(); renderCart(); return;
+  }
+  const {data, error} = await sb.from('usaid_products').select('*').order('id');
+  if(error){ products = DEFAULT_PRODUCTS.slice(); renderProducts(); renderCart(); return; }
+  if(data.length === 0){
+    const seed = DEFAULT_PRODUCTS.map(({id, ...rest}) => rest);
+    const {data:seeded} = await sb.from('usaid_products').insert(seed).select();
+    products = seeded || DEFAULT_PRODUCTS.slice();
+  } else { products = data; }
+  renderProducts(); renderCart();
+}
+function localSaveProducts(){ try{ localStorage.setItem('usaid_products', JSON.stringify(products)); }catch(e){} }
+
+/* ---------- services: cloud with local fallback ---------- */
+async function loadServices(){
+  if(!sb){
+    try{ services = JSON.parse(localStorage.getItem('usaid_services')) || DEFAULT_SERVICES.slice(); }catch(e){ services = DEFAULT_SERVICES.slice(); }
+    renderServices(); return;
+  }
+  const {data, error} = await sb.from('usaid_services').select('*').order('id');
+  if(error){ services = DEFAULT_SERVICES.slice(); renderServices(); return; }
+  if(data.length === 0){
+    const seed = DEFAULT_SERVICES.map(({id, ...rest}) => rest);
+    const {data:seeded} = await sb.from('usaid_services').insert(seed).select();
+    services = seeded || DEFAULT_SERVICES.slice();
+  } else { services = data; }
+  renderServices();
+}
+function localSaveServices(){ try{ localStorage.setItem('usaid_services', JSON.stringify(services)); }catch(e){} }
+
+/* ---------- settings: cloud with local fallback ---------- */
+async function loadSettings(){
+  if(!sb){
+    try{ settings = Object.assign({}, DEFAULT_SETTINGS, JSON.parse(localStorage.getItem('usaid_settings')||'{}')); }catch(e){}
+    renderStatus(); return;
+  }
+  const {data, error} = await sb.from('usaid_settings').select('*').eq('id','main').maybeSingle();
+  if(error || !data){
+    await sb.from('usaid_settings').upsert({id:'main', open_time:DEFAULT_SETTINGS.open, close_time:DEFAULT_SETTINGS.close, location:DEFAULT_SETTINGS.loc, manual_closed:false, note:''});
+    settings = Object.assign({}, DEFAULT_SETTINGS);
+  } else {
+    settings = {open:data.open_time, close:data.close_time, loc:data.location, manualClosed:data.manual_closed, note:data.note||''};
+  }
+  renderStatus();
+}
+
+function fmt12(hhmm){
+  const [h,m] = hhmm.split(':').map(Number);
+  const ap = h>=12 ? 'PM':'AM';
+  let h12 = h%12; if(h12===0) h12=12;
+  return `${h12}:${String(m).padStart(2,'0')} ${ap}`;
+}
+function computeStatus(){
+  if(settings.manualClosed){
+    return {open:false, label: settings.note ? `Abhi Band Hai — ${settings.note}` : 'Abhi Band Hai'};
+  }
+  const now = new Date();
+  const cur = now.getHours()*60 + now.getMinutes();
+  const [oh,om] = settings.open.split(':').map(Number);
+  const [ch,cm] = settings.close.split(':').map(Number);
+  const isOpen = cur >= (oh*60+om) && cur < (ch*60+cm);
+  return {open:isOpen, label: isOpen ? 'Abhi Dukan Khuli Hai' : 'Abhi Dukan Band Hai'};
+}
+function renderStatus(){
+  const st = computeStatus();
+  document.getElementById('statusBadge').innerHTML = `<span class="status-dot" style="background:${st.open ? 'var(--ok)' : 'var(--closed)'}"></span>${st.label} · ${fmt12(settings.open)}–${fmt12(settings.close)}`;
+  document.getElementById('timeText').textContent = `Roz ${fmt12(settings.open)} – ${fmt12(settings.close)}`;
+  document.getElementById('locText').textContent = settings.loc;
+  document.getElementById('dirLink').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(settings.loc);
+  document.getElementById('syncTag').textContent = sb ? '☁️ Cloud Sync: ON' : '📴 Local Mode (sirf is device par)';
+}
+
+function renderProducts(){
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = products.map(p => {
+    const qty = cart[p.id] || 0;
+    return `<div class="card">
+      <div class="admin-tools"><button onclick="editItem(${p.id})">✎ Edit</button></div>
+      <div class="card-icon">${p.icon}</div>
+      <h3>${p.name}</h3>
+      <div class="unit">${p.unit}</div>
+      <div class="price">₹${p.price}</div>
+      <div class="qty-row">
+        ${qty > 0 ? `<div class="stepper">
+          <button onclick="changeQty(${p.id},-1)" aria-label="Kam karein">−</button>
+          <span>${qty}</span>
+          <button onclick="changeQty(${p.id},1)" aria-label="Zyada karein">+</button>
+        </div>` : `<span></span>`}
+        <button class="add-btn" onclick="changeQty(${p.id},1)">${qty>0 ? 'Aur Add' : 'Cart mein Daalein'}</button>
+      </div>
+    </div>`;
+  }).join('') + `<div class="card add-card" onclick="newItem()">+ Naya Item Add Karein</div>`;
+}
+
+function renderServices(){
+  document.getElementById('svcGrid').innerHTML = services.map(s => `
+    <div class="svc-card">
+      <div class="admin-tools"><button onclick="editService(${s.id})">✎ Edit</button></div>
+      <div class="svc-icon">${s.icon}</div>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <button class="svc-btn" onclick="requestService('${s.name.replace(/'/g,"")}')">WhatsApp par Poochein</button>
+    </div>`).join('') + `<div class="svc-card add-card" onclick="newService()">+ Nayi Service Add Karein</div>`;
+}
+
+function changeQty(id, delta){
+  const cur = cart[id] || 0;
+  const next = Math.max(0, cur + delta);
+  if(next === 0) delete cart[id]; else cart[id] = next;
+  saveCart(); renderProducts(); renderCart(); updateCartCount();
+}
+function updateCartCount(){
+  const count = Object.values(cart).reduce((a,b)=>a+b,0);
+  document.getElementById('cartCount').textContent = count;
+}
+function renderCart(){
+  const items = Object.entries(cart);
+  const box = document.getElementById('drawerItems');
+  const btn = document.getElementById('waOrderBtn');
+  if(items.length === 0){
+    box.innerHTML = `<div class="empty-cart">Cart khaali hai. Saman chunein aur yahan add karein.</div>`;
+    document.getElementById('cartTotal').textContent = '₹0';
+    btn.disabled = true; return;
+  }
+  btn.disabled = false;
+  let total = 0;
+  box.innerHTML = items.map(([id, qty]) => {
+    const p = products.find(x => x.id == id);
+    if(!p) return '';
+    const sub = p.price * qty; total += sub;
+    return `<div class="d-item">
+      <div><div class="nm">${p.name}</div><div class="unit">${qty} × ₹${p.price}</div></div>
+      <div style="display:flex;align-items:center;gap:10px">₹${sub}<button class="rm" onclick="changeQty(${p.id},-${qty})">Hatayein</button></div>
+    </div>`;
+  }).join('');
+  document.getElementById('cartTotal').textContent = '₹' + total;
+}
+
+function openCart(){ document.getElementById('drawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+function closeCart(){ document.getElementById('drawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+function sendOrder(){
+  const items = Object.entries(cart);
+  if(items.length === 0) return;
+  let lines = ["Assalamualaikum, mujhe ye order chahiye:"];
+  let total = 0;
+  items.forEach(([id, qty]) => {
+    const p = products.find(x => x.id == id); if(!p) return;
+    lines.push(`- ${p.name} x${qty} = ₹${p.price*qty}`); total += p.price*qty;
+  });
+  lines.push(`Total: ₹${total}`);
+  window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(lines.join("\n"))}`, '_blank');
+}
+function requestService(name){
+  window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(`Assalamualaikum, mujhe "${name}" ki service chahiye.`)}`, '_blank');
+}
+
+/* --- admin: login --- */
+function openPinModal(){ document.getElementById('pinModal').classList.add('open'); document.getElementById('pinInput').value=''; }
+function closePinModal(){ document.getElementById('pinModal').classList.remove('open'); }
+function checkPin(){
+  if(document.getElementById('pinInput').value === ADMIN_PIN){
+    try{ sessionStorage.setItem('usaid_admin','1'); }catch(e){}
+    document.body.classList.add('admin-on'); closePinModal();
+  } else { alert('Galat PIN'); }
+}
+function adminOff(){ document.body.classList.remove('admin-on'); try{ sessionStorage.removeItem('usaid_admin'); }catch(e){} }
+if((()=>{ try{ return sessionStorage.getItem('usaid_admin')==='1'; }catch(e){ return false; } })()){ document.body.classList.add('admin-on'); }
+
+/* --- admin: items --- */
+let editingId = null;
+function newItem(){
+  editingId = null;
+  document.getElementById('itemModalTitle').textContent = 'Naya Item';
+  document.getElementById('f-name').value=''; document.getElementById('f-unit').value='1 piece';
+  document.getElementById('f-price').value=''; document.getElementById('f-icon').value='🔧';
+  document.getElementById('f-delete').style.display='none';
+  document.getElementById('itemModal').classList.add('open');
+}
+function editItem(id){
+  const p = products.find(x=>x.id==id); if(!p) return;
+  editingId = id;
+  document.getElementById('itemModalTitle').textContent = 'Item Edit Karein';
+  document.getElementById('f-name').value=p.name; document.getElementById('f-unit').value=p.unit;
+  document.getElementById('f-price').value=p.price; document.getElementById('f-icon').value=p.icon;
+  document.getElementById('f-delete').style.display='block';
+  document.getElementById('itemModal').classList.add('open');
+}
+function closeItemModal(){ document.getElementById('itemModal').classList.remove('open'); }
+async function saveItem(){
+  const name = document.getElementById('f-name').value.trim();
+  const unit = document.getElementById('f-unit').value.trim() || '1 piece';
+  const price = parseFloat(document.getElementById('f-price').value) || 0;
+  const icon = document.getElementById('f-icon').value.trim() || '🔧';
+  if(!name){ alert('Item ka naam likhein'); return; }
+  if(sb){
+    if(editingId){ await sb.from('usaid_products').update({name,unit,price,icon}).eq('id', editingId); }
+    else{ await sb.from('usaid_products').insert({name,unit,price,icon}); }
+    await loadProducts();
+  } else {
+    if(editingId){ const p = products.find(x=>x.id===editingId); p.name=name;p.unit=unit;p.price=price;p.icon=icon; }
+    else{ const newId = products.length ? Math.max(...products.map(p=>p.id))+1 : 1; products.push({id:newId,name,unit,price,icon}); }
+    localSaveProducts(); renderProducts(); renderCart();
+  }
+  closeItemModal();
+}
+async function deleteItem(){
+  if(!editingId) return;
+  if(sb){ await sb.from('usaid_products').delete().eq('id', editingId); await loadProducts(); }
+  else{ products = products.filter(x=>x.id!==editingId); localSaveProducts(); renderProducts(); renderCart(); }
+  delete cart[editingId]; saveCart(); updateCartCount(); closeItemModal();
+}
+
+/* --- admin: services --- */
+let editingSvcId = null;
+function newService(){
+  editingSvcId = null;
+  document.getElementById('svcModalTitle').textContent = 'Nayi Service';
+  document.getElementById('sv-name').value=''; document.getElementById('sv-desc').value='';
+  document.getElementById('sv-icon').value='🛠️';
+  document.getElementById('sv-delete').style.display='none';
+  document.getElementById('serviceModal').classList.add('open');
+}
+function editService(id){
+  const s = services.find(x=>x.id==id); if(!s) return;
+  editingSvcId = id;
+  document.getElementById('svcModalTitle').textContent = 'Service Edit Karein';
+  document.getElementById('sv-name').value=s.name; document.getElementById('sv-desc').value=s.desc;
+  document.getElementById('sv-icon').value=s.icon;
+  document.getElementById('sv-delete').style.display='block';
+  document.getElementById('serviceModal').classList.add('open');
+}
+function closeServiceModal(){ document.getElementById('serviceModal').classList.remove('open'); }
+async function saveService(){
+  const name = document.getElementById('sv-name').value.trim();
+  const desc = document.getElementById('sv-desc').value.trim();
+  const icon = document.getElementById('sv-icon').value.trim() || '🛠️';
+  if(!name){ alert('Service ka naam likhein'); return; }
+  if(sb){
+    if(editingSvcId){ await sb.from('usaid_services').update({name,desc,icon}).eq('id', editingSvcId); }
+    else{ await sb.from('usaid_services').insert({name,desc,icon}); }
+    await loadServices();
+  } else {
+    if(editingSvcId){ const s = services.find(x=>x.id===editingSvcId); s.name=name;s.desc=desc;s.icon=icon; }
+    else{ const newId = services.length ? Math.max(...services.map(s=>s.id))+1 : 1; services.push({id:newId,name,desc,icon}); }
+    localSaveServices(); renderServices();
+  }
+  closeServiceModal();
+}
+async function deleteService(){
+  if(!editingSvcId) return;
+  if(sb){ await sb.from('usaid_services').delete().eq('id', editingSvcId); await loadServices(); }
+  else{ services = services.filter(x=>x.id!==editingSvcId); localSaveServices(); renderServices(); }
+  closeServiceModal();
+}
+
+/* --- admin: settings --- */
+function openSettingsModal(){
+  document.getElementById('s-open').value = settings.open;
+  document.getElementById('s-close').value = settings.close;
+  document.getElementById('s-loc').value = settings.loc;
+  document.getElementById('s-manual').checked = settings.manualClosed;
+  document.getElementById('s-note').value = settings.note;
+  document.getElementById('settingsModal').classList.add('open');
+}
+function closeSettingsModal(){ document.getElementById('settingsModal').classList.remove('open'); }
+async function saveSettings(){
+  const open = document.getElementById('s-open').value || DEFAULT_SETTINGS.open;
+  const close = document.getElementById('s-close').value || DEFAULT_SETTINGS.close;
+  const loc = document.getElementById('s-loc').value.trim() || DEFAULT_SETTINGS.loc;
+  const manualClosed = document.getElementById('s-manual').checked;
+  const note = document.getElementById('s-note').value.trim();
+  settings = {open, close, loc, manualClosed, note};
+  if(sb){ await sb.from('usaid_settings').upsert({id:'main', open_time:open, close_time:close, location:loc, manual_closed:manualClosed, note}); }
+  else{ try{ localStorage.setItem('usaid_settings', JSON.stringify(settings)); }catch(e){} }
+  renderStatus(); closeSettingsModal();
+}
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+updateCartCount();
+loadSettings(); loadProducts(); loadServices();
+if(sb){
+  sb.channel('usaid-products-changes').on('postgres_changes',{event:'*',schema:'public',table:'usaid_products'}, () => loadProducts()).subscribe();
+  sb.channel('usaid-services-changes').on('postgres_changes',{event:'*',schema:'public',table:'usaid_services'}, () => loadServices()).subscribe();
+  sb.channel('usaid-settings-changes').on('postgres_changes',{event:'*',schema:'public',table:'usaid_settings'}, () => loadSettings()).subscribe();
+}
+setInterval(renderStatus, 60000);
+</script>
+</body>
+</html>
